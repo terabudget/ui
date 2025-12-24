@@ -1,46 +1,26 @@
 import ReactDOM from "react-dom/client";
 
 import {
-  createBrowserRouter,
-  createContext,
-  redirect,
   RouterProvider,
-  type MiddlewareFunction,
 } from "react-router";
-import App from "./App";
-import { PublicLayout } from "./layouts/PublicLayout";
-import { PrivateLayout } from "./layouts/PrivateLayout";
-import type { BudgetUser } from "./model/BudgetUser";
-import { isAuthenticated } from "./api/AuthApi";
 
-const authentiationContext = createContext<BudgetUser>();
+import { PrimeReactProvider } from "primereact/api";
 
-const authMiddleware: MiddlewareFunction = async ({ context }) => {
-  console.log("HERE");
-  if (!(await isAuthenticated())) {
-    throw redirect("/");
-  }
-  //   context.set(authentiationContext, await getUserById(userId));
-  //   return authentiationContext;
-};
+import "primereact/resources/primereact.min.css";
+import "primeflex/themes/primeone-light.css";
 
-const router = createBrowserRouter([
-  {
-    Component: PublicLayout,
-    children: [{ index: true, Component: App }],
-  },
-  {
-    path: "app",
-    middleware: [authMiddleware],
-    children: [
-      {
-        Component: PrivateLayout,
-        children: [{ index: true, Component: App }],
-      },
-    ],
-  },
-]);
+import "/node_modules/primeflex/primeflex.css";
+
+import "primeicons/primeicons.css";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { budgetRouter } from "./router";
+
+import "./assets/styles/theme.css"
 
 const root = document.getElementById("root") as HTMLElement;
 
-ReactDOM.createRoot(root).render(<RouterProvider router={router} />);
+ReactDOM.createRoot(root).render(
+  <PrimeReactProvider>
+    <RouterProvider router={budgetRouter} />
+  </PrimeReactProvider>
+);
