@@ -6,11 +6,15 @@ import { useNavigate } from "react-router";
 import { Button } from "primereact/button";
 import { UsernameField } from "../../model/fields/authFields";
 import { signIn } from "../../api/AuthApi";
+import { setAuth } from "../../util/localStorageUtil";
 
 export const SignIn = () => {
   const [username, setUsername] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [enabled, setEnabled] = React.useState<boolean>(false);
+  const [validationErrors, setValidationErrors] = React.useState<
+    string | undefined
+  >();
 
   const nav = useNavigate();
 
@@ -21,7 +25,17 @@ export const SignIn = () => {
     });
 
     const authResponse = await signIn(request);
-    console.log("RRR", authResponse);
+    if (authResponse === null) {
+      setValidationErrors("There was a problem signing you up");
+      return;
+    }
+
+    if (authResponse?.error) {
+      setValidationErrors(authResponse.error);
+    }
+
+    setAuth(authResponse);
+    nav("/app");
   };
 
   useEffect(() => {
@@ -56,6 +70,12 @@ export const SignIn = () => {
           id="password"
           onValueChange={setPassword}
         />
+      </div>
+
+      <div className="flex flex-grow align-items-center justify-content-center pt-2">
+        {validationErrors && (
+          <small className="p-error">{validationErrors}</small>
+        )}
       </div>
 
       <div className="flex flex-grow align-items-center justify-content-center">

@@ -7,6 +7,7 @@ import { Button } from "primereact/button";
 import { useNavigate } from "react-router";
 import { UsernameField } from "../../model/fields/authFields";
 import { signUp } from "../../api/AuthApi";
+import { setAuth } from "../../util/localStorageUtil";
 
 export const SignUp = () => {
   const [username, setUsername] = React.useState<string>("");
@@ -20,13 +21,25 @@ export const SignUp = () => {
   const nav = useNavigate();
 
   const doSignUp = async () => {
+    console.log("Doing sign up");
     const request = SignUpRequest.parse({
       username,
       password,
+      confirmPassword,
     });
 
     const authResponse = await signUp(request);
-    console.log("RRR", authResponse);
+    if (authResponse === null) {
+      setValidationErrors("There was a problem signing you up");
+      return;
+    }
+
+    if (authResponse?.error) {
+      setValidationErrors(authResponse.error);
+    }
+
+    setAuth(authResponse);
+    nav("/app");
   };
 
   useEffect(() => {

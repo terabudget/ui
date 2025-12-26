@@ -12,7 +12,7 @@ export const PublicHeader = () => {
 
   return (
     <div className="card">
-      <Menubar start={start} />
+      <Menubar start={start}  />
     </div>
   );
 };
