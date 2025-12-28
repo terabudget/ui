@@ -1,15 +1,15 @@
 import React from "react";
 import { Outlet } from "react-router";
-import { SecuredHeader } from "../components/SecuredHeader";
+import { SecuredSidebar } from "../components/secured/SecuredSidebar";
 
 const App: React.FC = () => {
   return (
-    <>
-      <div className="m-2">
-        <SecuredHeader />
+    <div className="flex">
+      <SecuredSidebar />
+      <div className="flex-auto ml-2 p-4">
+        <Outlet />
       </div>
-      <Outlet />
-    </>
+    </div>
   );
 };
 

@@ -6,6 +6,7 @@ import PublicLayout from "./layouts/PublicLayout";
 import SecuredLayout from "./layouts/SecuredLayout";
 import { SecuredHome } from "./pages/secured/SecuredHome";
 import { authMiddleware } from "./middleware/authMiddleware";
+import { SignOut } from "./pages/public/SignOut";
 
 export const budgetRouter = createBrowserRouter([
   {
@@ -13,9 +14,15 @@ export const budgetRouter = createBrowserRouter([
     children: [{ index: true, Component: SignIn }],
   },
   {
-    path: "signup",
+    path: "sign-up",
     Component: PublicLayout,
     children: [{ index: true, Component: SignUp }],
+  },
+  {
+    path: "/sign-out",
+    Component: PublicLayout,
+    middleware: [authMiddleware],
+    children: [{ index: true, Component: SignOut }],
   },
   {
     path: "app",

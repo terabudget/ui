@@ -52,10 +52,11 @@ export function ValidationWrapper<T>({
   const showOkText = !validationErrors && newValue;
 
   return (
-    <div className="flex flex-column align-items-left flex-none">
-      <div className="flex">{children}</div>
-      <div className="flex max-w-16rem mt-2">
-        <small id={`${inputId}-help`}>
+    <div className="grid grid-rows-1">
+      <div className="row-span-1 m-auto">{children}</div>
+      <div className="row-span-1">
+
+        <small id={`${inputId}-help`} className="text-wrap">
           {showOkText && okText}
           {showHelpText && helpText}
           {validationErrors && (

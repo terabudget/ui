@@ -47,24 +47,22 @@ export const SignIn = () => {
   }, [username, password]);
 
   return (
-    <>
-      <div className="flex flex-grow align-items-center justify-content-center pt-6">
-        <h2>Sign In</h2>
+    <div className="flex grid grid-cols-1">
+      <div className="col-span-1 flex m-auto p-4">
+        <h1>Sign In</h1>
       </div>
-      <div className="align-items-center justify-content-center">
-        <div className="formgrid grid align-items-center justify-content-center ">
-          <ValidatedInputText
-            displayName="Username"
-            helpText="Enter a username to log in."
-            id="username"
-            okText="Username is OK"
-            onValueChange={setUsername}
-            zodString={UsernameField}
-          />
-        </div>
+      <div className="col-span-1 m-auto p-4">
+        <ValidatedInputText
+          displayName="Username"
+          helpText="Enter a username to log in."
+          id="username"
+          okText="Username is OK"
+          onValueChange={setUsername}
+          zodString={UsernameField}
+        />
       </div>
 
-      <div className="flex flex-grow align-items-center justify-content-center pt-2">
+      <div className="col-span-1 m-auto p-4">
         <ValidatedPassword
           helpText="Enter a password to log in."
           id="password"
@@ -72,38 +70,32 @@ export const SignIn = () => {
         />
       </div>
 
-      <div className="flex flex-grow align-items-center justify-content-center pt-2">
+      <div className="col-span-1 m-auto">
         {validationErrors && (
           <small className="p-error">{validationErrors}</small>
         )}
       </div>
 
-      <div className="flex flex-grow align-items-center justify-content-center">
-        <div className="grid">
-          <div className="col flex flex-none">
-            <div className="text-center p-3 border-round-sm font-bold">
-              <Button
-                disabled={!enabled}
-                className="p-button p-component"
-                label="Sign In"
-                onClick={doSignIn}
-              />
-            </div>
-          </div>
-          <div className="col flex flex-none">
-            <div className="text-center p-3 border-round-sm font-bold">
-              <Button
-                className="p-button p-component"
-                severity="secondary"
-                text
-                label="Sign Up"
-                raised
-                onClick={() => nav("/signup")}
-              />
-            </div>
-          </div>
+      <div className="col-span-1 m-auto">
+        <div className="p-2 inline-block">
+          <Button
+            disabled={!enabled}
+            className="p-button p-component"
+            label="Sign In"
+            onClick={doSignIn}
+          />
         </div>
+        <div className="p-2 inline-block">
+          <Button
+            className="p-button p-component"
+            severity="secondary"
+            text
+            label="Sign Up"
+            raised
+            onClick={() => nav("/sign-up")}
+          />
+        </div>{" "}
       </div>
-    </>
+    </div>
   );
 };

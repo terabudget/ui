@@ -62,25 +62,23 @@ export const SignUp = () => {
   }, [username, password, confirmPassword]);
 
   return (
-    <>
-      <div className="flex flex-grow align-items-center justify-content-center pt-6">
-        <h2>Sign Up</h2>
+    <div className="flex grid grid-cols-1">
+      <div className="col-span-1 flex m-auto p-4">
+        <h1>Sign Up</h1>
       </div>
 
-      <div className="align-items-center justify-content-center">
-        <div className="formgrid grid align-items-center justify-content-center ">
-          <ValidatedInputText
-            displayName="Username"
-            id="username"
-            onValueChange={setUsername}
-            helpText="Enter a username."
-            okText="Username is OK"
-            zodString={UsernameField}
-          />
-        </div>
+      <div className="col-span-1 m-auto p-4">
+        <ValidatedInputText
+          displayName="Username"
+          id="username"
+          onValueChange={setUsername}
+          helpText="Enter a username."
+          okText="Username is OK"
+          zodString={UsernameField}
+        />
       </div>
 
-      <div className="flex flex-grow align-items-center justify-content-center pt-2">
+      <div className="col-span-1 m-auto p-4">
         <ValidatedPassword
           helpText="Enter a password."
           id="password"
@@ -88,7 +86,7 @@ export const SignUp = () => {
         />
       </div>
 
-      <div className="flex flex-grow align-items-center justify-content-center pt-2">
+      <div className="col-span-1 m-auto p-4">
         <ValidatedPassword
           displayName="Confirm Password"
           helpText="Confirm your password."
@@ -98,38 +96,32 @@ export const SignUp = () => {
         />
       </div>
 
-      <div className="flex flex-grow align-items-center justify-content-center pt-2">
+      <div className="col-span-1 m-auto">
         {validationErrors && (
           <small className="p-error">{validationErrors}</small>
         )}
       </div>
 
-      <div className="flex align-items-center justify-content-center">
-        <div className="grid ">
-          <div className="col flex flex-none">
-            <div className="text-center p-3 border-round-sm font-bold">
-              <Button
-                disabled={!enabled}
-                className="p-button p-component"
-                label="Sign up"
-                onClick={doSignUp}
-              />
-            </div>
-          </div>
-          <div className="col flex flex-none">
-            <div className="text-center p-3 border-round-sm font-bold">
-              <Button
-                className="p-button p-component"
-                severity="secondary"
-                label="Cancel"
-                text
-                raised
-                onClick={() => nav("/")}
-              />
-            </div>
-          </div>
+      <div className="col-span-1 m-auto p-4">
+        <div className="p-2 inline-block">
+          <Button
+            disabled={!enabled}
+            className="p-button p-component"
+            label="Sign up"
+            onClick={doSignUp}
+          />
+        </div>
+        <div className="p-2 inline-block">
+          <Button
+            className="p-button p-component"
+            severity="secondary"
+            label="Cancel"
+            text
+            raised
+            onClick={() => nav("/")}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };

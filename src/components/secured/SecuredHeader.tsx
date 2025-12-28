@@ -5,15 +5,15 @@ import type { MenuItem } from "primereact/menuitem";
 export const SecuredHeader = () => {
   const items: MenuItem[] = [
     {
-      label: "Home",
+      label: "Accounts",
       icon: "pi pi-home",
     },
     {
-      label: "Features",
+      label: "Planning",
       icon: "pi pi-star",
     },
     {
-      label: "Projects",
+      label: "Reports",
       icon: "pi pi-search",
     },
   ];
