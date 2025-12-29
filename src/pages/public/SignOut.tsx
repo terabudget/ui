@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router";
+import { useAuthContext } from "../../components/provider/AuthProvider";
 
 export const SignOut = () => {
   const nav = useNavigate();
+  const { clearAuth } = useAuthContext();
 
-  localStorage.clear();
+  clearAuth();
 
   return (
     <div className="flex grid grid-cols-1">

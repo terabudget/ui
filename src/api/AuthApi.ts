@@ -10,7 +10,6 @@ export const isAccessTokenValid = async (token: string | null | undefined) => {
   if (!token) {
     return false;
   }
-  console.log("Token", token)
   const axiosResult = await budgetAxios.get("/api/auth/token-valid", {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -101,7 +100,7 @@ export const signIn = async (
   }
 
   const axiosResult = await budgetAxios.post(
-    "/api/auth/signin",
+    "/api/auth/sign-in",
     JSON.stringify(loginRequest.data)
   );
   const decodeOutcome = AuthResponse.safeDecode(JSON.parse(axiosResult.data));

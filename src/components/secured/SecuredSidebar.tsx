@@ -32,6 +32,7 @@ export const SecuredSidebar = () => {
           label: "Categories",
           icon: "pi pi-plus",
           template: itemRenderer,
+          command: () => nav("/app/categories"),
         },
         {
           label: "Planner",

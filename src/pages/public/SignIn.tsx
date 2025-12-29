@@ -6,12 +6,14 @@ import { useNavigate } from "react-router";
 import { Button } from "primereact/button";
 import { UsernameField } from "../../model/fields/authFields";
 import { signIn } from "../../api/AuthApi";
-import { setAuth } from "../../util/localStorageUtil";
+import { useAuthContext } from "../../components/provider/AuthProvider";
+import { lsUtil } from "../../util/localStorageUtil";
 
 export const SignIn = () => {
   const [username, setUsername] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [enabled, setEnabled] = React.useState<boolean>(false);
+  const { clearAuth, setTokens } = useAuthContext();
   const [validationErrors, setValidationErrors] = React.useState<
     string | undefined
   >();
@@ -19,6 +21,7 @@ export const SignIn = () => {
   const nav = useNavigate();
 
   const doSignIn = async () => {
+    clearAuth();
     const request = SignInRequest.parse({
       username,
       password,
@@ -33,8 +36,8 @@ export const SignIn = () => {
     if (authResponse?.error) {
       setValidationErrors(authResponse.error);
     }
-
-    setAuth(authResponse);
+    lsUtil.setAuth(authResponse);
+    setTokens(authResponse);
     nav("/app");
   };
 

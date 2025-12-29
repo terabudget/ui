@@ -7,13 +7,15 @@ import { Button } from "primereact/button";
 import { useNavigate } from "react-router";
 import { UsernameField } from "../../model/fields/authFields";
 import { signUp } from "../../api/AuthApi";
-import { setAuth } from "../../util/localStorageUtil";
+import { useAuthContext } from "../../components/provider/AuthProvider";
+import { lsUtil } from "../../util/localStorageUtil";
 
 export const SignUp = () => {
   const [username, setUsername] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [confirmPassword, setConfirmPassword] = React.useState<string>("");
   const [enabled, setEnabled] = React.useState<boolean>(false);
+  const { clearAuth, setTokens } = useAuthContext();
   const [validationErrors, setValidationErrors] = React.useState<
     string | undefined
   >();
@@ -21,7 +23,7 @@ export const SignUp = () => {
   const nav = useNavigate();
 
   const doSignUp = async () => {
-    console.log("Doing sign up");
+    clearAuth();
     const request = SignUpRequest.parse({
       username,
       password,
@@ -38,7 +40,8 @@ export const SignUp = () => {
       setValidationErrors(authResponse.error);
     }
 
-    setAuth(authResponse);
+    lsUtil.setAuth(authResponse);
+    setTokens(authResponse);
     nav("/app");
   };
 
