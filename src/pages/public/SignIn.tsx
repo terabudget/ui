@@ -9,6 +9,7 @@ import { signIn } from "../../api/AuthApi";
 import { useAuthContext } from "../../components/provider/AuthProvider";
 import { lsUtil } from "../../util/localStorageUtil";
 import { FormComponent } from "../../components/FormComponent";
+import { setAuthHeader } from "../../api/budgetAxios";
 
 export const SignIn = () => {
   const [username, setUsername] = React.useState<string>("");
@@ -37,6 +38,7 @@ export const SignIn = () => {
     if (authResponse?.error) {
       setValidationErrors(authResponse.error);
     }
+    setAuthHeader(authResponse.accessToken);
     lsUtil.setAuth(authResponse);
     setTokens(authResponse);
     nav("/app");

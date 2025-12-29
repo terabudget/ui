@@ -6,3 +6,17 @@ export const budgetAxios = new Axios({
     "Content-Type": "application/json",
   },
 });
+
+export const setAuthHeader = (accessToken: string) => {
+  if (!budgetAxios.defaults.headers.common) {
+    budgetAxios.defaults.headers.common = {};
+  }
+  budgetAxios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+};
+
+export const clearAuthHeader = () => {
+  if (!budgetAxios.defaults.headers.common) {
+    budgetAxios.defaults.headers.common = {};
+  }
+  budgetAxios.defaults.headers.common.Authorization = "";
+};

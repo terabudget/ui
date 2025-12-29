@@ -10,6 +10,7 @@ import { signUp } from "../../api/AuthApi";
 import { useAuthContext } from "../../components/provider/AuthProvider";
 import { lsUtil } from "../../util/localStorageUtil";
 import { FormComponent } from "../../components/FormComponent";
+import { setAuthHeader } from "../../api/budgetAxios";
 
 export const SignUp = () => {
   const [username, setUsername] = React.useState<string>("");
@@ -41,6 +42,7 @@ export const SignUp = () => {
       setValidationErrors(authResponse.error);
     }
 
+    setAuthHeader(authResponse.accessToken);
     lsUtil.setAuth(authResponse);
     setTokens(authResponse);
     nav("/app");

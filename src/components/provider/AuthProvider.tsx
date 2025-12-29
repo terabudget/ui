@@ -8,6 +8,7 @@ import {
 import type { AuthResponse } from "../../model/AuthResponse";
 import { isAccessTokenValid } from "../../api/AuthApi";
 import { lsUtil } from "../../util/localStorageUtil";
+import { clearAuthHeader, setAuthHeader } from "../../api/budgetAxios";
 
 interface AuthContextInterface {
   tokens: AuthResponse | undefined;
@@ -42,21 +43,28 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const clearAuth = () => {
+    clearAuthHeader();
     setTokens(undefined);
     localStorage.clear();
   };
 
   useEffect(() => {
     const checkToken = async () => {
+      // No tokens present in the context.  Attempt to use the local storage tokens.
       if (!tokens) {
+        clearAuthHeader();
         setIsAuthenticated(false);
         const lsTokens = lsUtil.getAuth();
         if (lsTokens) {
+          setAuthHeader(lsTokens.accessToken);
           setTokens(lsTokens);
         }
         return;
       }
+
+      // Token is present in the context.  Validate it.
       const isValid = await isAccessTokenValid(tokens.accessToken);
+      if (isValid) setAuthHeader(tokens.accessToken);
       setIsAuthenticated(isValid);
     };
 

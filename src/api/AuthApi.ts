@@ -10,11 +10,7 @@ export const isAccessTokenValid = async (token: string | null | undefined) => {
   if (!token) {
     return false;
   }
-  const axiosResult = await budgetAxios.get("/api/auth/token-valid", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const axiosResult = await budgetAxios.get("/api/auth/token-valid");
   return axiosResult.status === HttpStatusCode.NoContent;
 };
 
