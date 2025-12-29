@@ -8,6 +8,7 @@ import { UsernameField } from "../../model/fields/authFields";
 import { signIn } from "../../api/AuthApi";
 import { useAuthContext } from "../../components/provider/AuthProvider";
 import { lsUtil } from "../../util/localStorageUtil";
+import { FormComponent } from "../../components/FormComponent";
 
 export const SignIn = () => {
   const [username, setUsername] = React.useState<string>("");
@@ -50,55 +51,58 @@ export const SignIn = () => {
   }, [username, password]);
 
   return (
-    <div className="flex grid grid-cols-1">
-      <div className="col-span-1 flex m-auto p-4">
-        <h1>Sign In</h1>
-      </div>
-      <div className="col-span-1 m-auto p-4">
-        <ValidatedInputText
-          displayName="Username"
-          helpText="Enter a username to log in."
-          id="username"
-          okText="Username is OK"
-          onValueChange={setUsername}
-          zodString={UsernameField}
-        />
-      </div>
-
-      <div className="col-span-1 m-auto p-4">
-        <ValidatedPassword
-          helpText="Enter a password to log in."
-          id="password"
-          onValueChange={setPassword}
-        />
-      </div>
-
-      <div className="col-span-1 m-auto">
-        {validationErrors && (
-          <small className="p-error">{validationErrors}</small>
-        )}
-      </div>
-
-      <div className="col-span-1 m-auto">
-        <div className="p-2 inline-block">
-          <Button
-            disabled={!enabled}
-            className="p-button p-component"
-            label="Sign In"
-            onClick={doSignIn}
+    <FormComponent id="login-form" onSubmit={doSignIn}>
+      <div className="flex grid grid-cols-1">
+        <div className="col-span-1 flex m-auto p-4">
+          <h1>Sign In</h1>
+        </div>
+        <div className="col-span-1 m-auto p-4">
+          <ValidatedInputText
+            displayName="Username"
+            helpText="Enter a username to log in."
+            id="username"
+            okText="Username is OK"
+            onValueChange={setUsername}
+            zodString={UsernameField}
           />
         </div>
-        <div className="p-2 inline-block">
-          <Button
-            className="p-button p-component"
-            severity="secondary"
-            text
-            label="Sign Up"
-            raised
-            onClick={() => nav("/sign-up")}
+
+        <div className="col-span-1 m-auto p-4">
+          <ValidatedPassword
+            helpText="Enter a password to log in."
+            id="password"
+            onValueChange={setPassword}
           />
-        </div>{" "}
+        </div>
+
+        <div className="col-span-1 m-auto">
+          {validationErrors && (
+            <small className="p-error">{validationErrors}</small>
+          )}
+        </div>
+
+        <div className="col-span-1 m-auto">
+          <div className="p-2 inline-block">
+            <Button
+              disabled={!enabled}
+              className="p-button p-component"
+              label="Sign In"
+              type="submit"
+            />
+          </div>
+          <div className="p-2 inline-block">
+            <Button
+              className="p-button p-component"
+              severity="secondary"
+              text
+              aria-label="Sign In"
+              label="Sign In"
+              raised
+              onClick={() => nav("/sign-up")}
+            />
+          </div>{" "}
+        </div>
       </div>
-    </div>
+    </FormComponent>
   );
 };

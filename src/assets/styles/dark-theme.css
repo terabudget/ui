@@ -24,13 +24,13 @@
   --color-secondary-dark: #3d7d7e;
   --color-secondary-light: #6ab6b7;
 
-  --color-background: #eceef3;
-  --color-foreground: #fafbfc;
-  --color-border: #d8dbe7;
+  --color-background: #14161f;
+  --color-foreground: #1d222f;
+  --color-border: #31384f;
 
-  --color-copy: #1d222f;
-  --color-copy-light: #4e5a7e;
-  --color-copy-lighter: #727fa7;
+  --color-copy: #fafbfc;
+  --color-copy-light: #d0d4e2;
+  --color-copy-lighter: #919bba;
 
   --color-success: #4ea04e;
   --color-warning: #a0a04e;
@@ -38,8 +38,4 @@
   --color-success-content: #f4f9f4;
   --color-warning-content: #000000;
   --color-error-content: #f9f4f4;
-}
-
-* {
-  color: var(--color-copy);
 }

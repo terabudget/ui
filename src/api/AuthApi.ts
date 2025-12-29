@@ -63,7 +63,6 @@ export const signUp = async (
     console.log(loginRequest.error);
     return null;
   }
-  console.log("Sending ", JSON.stringify(loginRequest.data));
   const axiosResult = await budgetAxios.post(
     "/api/auth/sign-up",
     JSON.stringify(loginRequest.data)

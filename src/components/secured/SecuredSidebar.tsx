@@ -1,23 +1,48 @@
 import { Menu } from "primereact/menu";
-import type { MenuItem } from "primereact/menuitem";
 
 import "./SecuredSidebar.css";
 import { LogoText } from "../LogoText";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { SidebarItem } from "./SidebarItem";
+import type { SidebarItemType } from "./SidebarItem";
+import { useEffect, useState } from "react";
 
 export const SecuredSidebar = () => {
+  const [activeItem, setActiveItem] = useState<string | undefined>();
   const nav = useNavigate();
+  const location = useLocation();
 
   const headerRenderer = () => (
-    <Link to={"/app"}>
-      <LogoText className="flex-auto px-4 py-2" />
-    </Link>
+    <div className="sidebar-logo">
+      <Link to={"/app"}>
+        <LogoText className="flex-auto px-4 py-2" />
+      </Link>
+    </div>
   );
 
-  const itemRenderer = (item: MenuItem) => <SidebarItem item={item} />;
+  const itemRenderer = (item: SidebarItemType) => <SidebarItem item={item} />;
 
-  let items: MenuItem[] = [
+  useEffect(() => {
+    const lowercasePathName = location.pathname.toLowerCase();
+
+    switch (lowercasePathName) {
+      case "/app":
+        setActiveItem("dashboard");
+        break;
+      case "/app/accounts":
+      case "/app/categories":
+      case "/app/planner":
+      case "/app/reports":
+      case "/app/settings":
+      case "/app/transactions":
+        setActiveItem(lowercasePathName.split("/")[2]);
+        break;
+      default:
+        setActiveItem(undefined);
+    }
+  }, [location]);
+
+  let items: SidebarItemType[] = [
     {
       template: headerRenderer,
     },
@@ -29,41 +54,56 @@ export const SecuredSidebar = () => {
 
       items: [
         {
-          label: "Categories",
-          icon: "pi pi-plus",
-          template: itemRenderer,
           command: () => nav("/app/categories"),
+          icon: "pi pi-plus",
+          isActive: activeItem === "categories",
+          label: "Categories",
+          template: itemRenderer,
         },
         {
-          label: "Planner",
+          command: () => nav("/app/planner"),
           icon: "pi pi-search",
+          isActive: activeItem === "planner",
+          label: "Planner",
           template: itemRenderer,
         },
-      ] as MenuItem[],
+      ] as SidebarItemType[],
     },
     {
       separator: true,
     },
     {
       label: "Analysis",
-
       items: [
         {
-          label: "Accounts",
+          command: () => nav("/app"),
           icon: "pi pi-plus",
+          isActive: activeItem === "dashboard",
+          label: "Dashboard",
           template: itemRenderer,
         },
         {
+          command: () => nav("/app/accounts"),
+          icon: "pi pi-plus",
+          isActive: activeItem === "accounts",
+          label: "Accounts",
+          template: itemRenderer,
+        },
+        {
+          command: () => nav("/app/transactions"),
+          icon: "pi pi-search",
+          isActive: activeItem === "transactions",
           label: "Transactions",
-          icon: "pi pi-search",
           template: itemRenderer,
         },
         {
-          label: "Reports",
+          command: () => nav("/app/reports"),
           icon: "pi pi-search",
+          label: "Reports",
+          isActive: activeItem === "reports",
           template: itemRenderer,
         },
-      ] as MenuItem[],
+      ] as SidebarItemType[],
     },
     {
       separator: true,
@@ -73,8 +113,10 @@ export const SecuredSidebar = () => {
       label: "Profile",
       items: [
         {
+          command: () => nav("/app/settings"),
           label: "Settings",
           icon: "pi pi-cog",
+          isActive: activeItem === "settings",
           shortcut: "⌘+O",
           template: itemRenderer,
         },
@@ -84,9 +126,9 @@ export const SecuredSidebar = () => {
           command: () => nav("/sign-out"),
           template: itemRenderer,
         },
-      ] as MenuItem[],
+      ] as SidebarItemType[],
     },
   ];
 
-  return <Menu model={items} className="bg-background" />;
+  return <Menu model={items} className="secured-sidebar" />;
 };

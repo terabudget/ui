@@ -1,0 +1,7 @@
+.sidebar-item:hover {
+  background-color: var(--color-background);
+}
+
+.sidebar-item.active {
+  background-color: var(--color-background);
+}

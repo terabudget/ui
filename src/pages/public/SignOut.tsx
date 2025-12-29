@@ -8,6 +8,7 @@ export const SignOut = () => {
   clearAuth();
 
   return (
+    
     <div className="flex grid grid-cols-1">
       <div className="col-span-1 flex m-auto p-4">
         <h1>Sign Out</h1>
