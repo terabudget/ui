@@ -7,6 +7,8 @@ import "primeicons/primeicons.css";
 
 import "./assets/styles/theme.css";
 
+import "./main.css";
+
 import { BudgetRouter } from "./BudgetRouter";
 import { AuthProvider } from "./components/provider/AuthProvider";
 

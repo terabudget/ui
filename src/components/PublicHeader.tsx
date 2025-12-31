@@ -20,7 +20,7 @@ export const PublicHeader = () => {
   );
 
   return (
-    <div className="card flex">
+    <div className="flex">
       <Menubar start={start} className="grow" />
     </div>
   );

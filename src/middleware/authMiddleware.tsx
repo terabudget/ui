@@ -20,9 +20,10 @@ export const authMiddleware: MiddlewareFunction = async () => {
     return;
   }
 
+  clearAuthHeader();
   const authResponse = await refreshToken(auth.refreshToken);
+
   if (!authResponse) {
-    clearAuthHeader();
     localStorage.clear();
     throw redirect("/");
   }
