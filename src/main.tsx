@@ -16,8 +16,8 @@ const root = document.getElementById("root") as HTMLElement;
 
 ReactDOM.createRoot(root).render(
   <PrimeReactProvider value={{ pt: Tailwind }}>
-    <AuthProvider>
+    {/* <AuthProvider> */}
       <BudgetRouter />
-    </AuthProvider>
+    {/* </AuthProvider> */}
   </PrimeReactProvider>
 );

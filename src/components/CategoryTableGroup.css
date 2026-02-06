@@ -1,0 +1,9 @@
+.category-table-group,
+.category-table-group div {
+  background-color: var(--color-secondary);
+  color: var(--color-primary-content);
+}
+
+.category-table-group * {
+  color: var(--color-primary-content);
+}

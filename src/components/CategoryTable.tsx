@@ -1,4 +1,5 @@
 import "./CategoryTable.css";
+import { CategoryTableGroup } from "./CategoryTableGroup";
 import { CategoryTableHeader } from "./CategoryTableHeader";
 import { CategoryTableRow } from "./CategoryTableRow";
 import { useBudgetCategoryContext } from "./provider/BudgetCategoryProvider";
@@ -44,11 +45,18 @@ export const CategoryTable = () => {
     <div className="category-table">
       <CategoryTableHeader />
       {categories.map((c) => (
-        <CategoryTableRow
-          category={c}
-          onCategorySelectChange={onCategorySelectedChange}
-          key={c.id}
-        />
+        <>
+          <CategoryTableGroup
+            category={c}
+            onCategorySelectChange={onCategorySelectedChange}
+            key={c.id}
+          />
+          <CategoryTableRow
+            category={c}
+            onCategorySelectChange={onCategorySelectedChange}
+            key={c.id}
+          />
+        </>
       ))}
       <div className="category-table grid grid-cols-13"></div>
     </div>

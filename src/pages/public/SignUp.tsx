@@ -10,43 +10,43 @@ import { signUp } from "../../api/AuthApi";
 import { useAuthContext } from "../../components/provider/AuthProvider";
 import { lsUtil } from "../../util/localStorageUtil";
 import { FormComponent } from "../../components/FormComponent";
-import { setAuthHeader } from "../../api/budgetAxios";
+// import { setAuthHeader } from "../../api/budgetAxios";
 
 export const SignUp = () => {
   const [username, setUsername] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [confirmPassword, setConfirmPassword] = React.useState<string>("");
   const [enabled, setEnabled] = React.useState<boolean>(false);
-  const { clearAuth, setTokens } = useAuthContext();
+//   const { clearAuth, setTokens } = useAuthContext();
   const [validationErrors, setValidationErrors] = React.useState<
     string | undefined
   >();
 
   const nav = useNavigate();
 
-  const doSignUp = async () => {
-    clearAuth();
-    const request = SignUpRequest.parse({
-      username,
-      password,
-      confirmPassword,
-    });
+//   const doSignUp = async () => {
+//     clearAuth();
+//     const request = SignUpRequest.parse({
+//       username,
+//       password,
+//       confirmPassword,
+//     });
 
-    const authResponse = await signUp(request);
-    if (authResponse === null) {
-      setValidationErrors("There was a problem signing you up");
-      return;
-    }
+//     const authResponse = await signUp(request);
+//     if (authResponse === null) {
+//       setValidationErrors("There was a problem signing you up");
+//       return;
+//     }
 
-    if (authResponse?.error) {
-      setValidationErrors(authResponse.error);
-    }
+//     if (authResponse?.error) {
+//       setValidationErrors(authResponse.error);
+//     }
 
-    setAuthHeader(authResponse.accessToken);
-    lsUtil.setAuth(authResponse);
-    setTokens(authResponse);
-    nav("/app");
-  };
+//     setAuthHeader(authResponse.accessToken);
+//     lsUtil.setAuth(authResponse);
+//     setTokens(authResponse);
+//     nav("/app");
+//   };
 
   useEffect(() => {
     const result = SignUpRequest.safeParse({

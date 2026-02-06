@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router";
-import { useAuthContext } from "../../components/provider/AuthProvider";
+// import { useAuthContext } from "../../components/provider/AuthProvider";
 
 export const SignOut = () => {
   const nav = useNavigate();
-  const { clearAuth } = useAuthContext();
+//   const { clearAuth } = useAuthContext();
 
-  clearAuth();
+//   clearAuth();
 
   return (
     <div className="flex grid grid-cols-1">

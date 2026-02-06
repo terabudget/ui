@@ -1,8 +1,9 @@
 import { Axios } from "axios";
 
 export const budgetAxios = new Axios({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL + "/api",
   headers: {
+    Accept: "application/json",
     "Content-Type": "application/json",
   },
 });

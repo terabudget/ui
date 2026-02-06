@@ -28,7 +28,7 @@ export const CategoryTableHeader = () => {
           uncheckIcon={PrimeIcons.MINUS}
         />
       </div>
-      <div className="col-span-6">Category</div>
+      <div className="col-span-6">Category {"" + selectAllState}</div>
       <div className="col-span-2">Spent</div>
       <div className="col-span-2">Available</div>
       <div className="col-span-2">target</div>

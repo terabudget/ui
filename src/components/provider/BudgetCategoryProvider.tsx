@@ -8,29 +8,30 @@ import {
 import type { BudgetCategory } from "../../model/BudgetCategory";
 import type { BudgetCategoryMap } from "../../model/BudgetCategoryMap";
 import { CategoriesSelectedState } from "../../model/CategorySelectedState";
+import { getBudgetCategories } from "../../api/BudgetCategoryAPI";
 
 const TEST_DATA: BudgetCategory[] = [
   {
-    group: { id: "g1", name: "G1" },
-    displayOrder: 0,
+    // group: { id: "g1", name: "G1" },
+    // displayOrder: 0,
     id: "0",
     name: "Test 0",
   },
   {
-    group: { id: "g2", name: "G2" },
-    displayOrder: 1,
+    // group: { id: "g2", name: "G2" },
+    // displayOrder: 1,
     id: "1",
     name: "Test 1",
   },
   {
-    group: { id: "g1", name: "G1" },
-    displayOrder: 2,
+    // group: { id: "g1", name: "G1" },
+    // displayOrder: 2,
     id: "2",
     name: "Test 2",
   },
   {
-    group: { id: "g1", name: "G1" },
-    displayOrder: 3,
+    // group: { id: "g1", name: "G1" },
+    // displayOrder: 3,
     id: "3",
     name: "Test 3",
   },
@@ -55,7 +56,7 @@ export const useBudgetCategoryContext = () => {
   const context = useContext(BudgetCategoryContext);
   if (context === undefined) {
     throw new Error(
-      "useBudgetCategory must be used within a BudgetCategoryProvider"
+      "useBudgetCategory must be used within a BudgetCategoryProvider",
     );
   }
   return context;
@@ -80,22 +81,26 @@ export const BudgetCategoryProvider = ({
   const [countSelected, setCountSelected] = useState<number>(0);
   const [categoryMap, setCategoryMap] = useState<BudgetCategoryMap>({});
   const [selectedState, setSelectedState] = useState<CategoriesSelectedState>(
-    CategoriesSelectedState.NONE
+    CategoriesSelectedState.NONE,
   );
 
   const setCategories = (newCategories: BudgetCategory[]) => {
+    if (!categories) {
+      setCategoriesLocal([]);
+      return;
+    }
     setCategoriesLocal(newCategories);
 
     const newCountSelected = newCategories.reduce(
       (acc, item) => (acc = acc + (item.selected ? 1 : 0)),
-      0
+      0,
     );
 
     setCountSelected(countSelected);
 
     let newSelectedState: CategoriesSelectedState =
       CategoriesSelectedState.NONE;
-    if (newCountSelected === categories.length) {
+    if (newCountSelected === categories.length && newCountSelected > 0) {
       newSelectedState = CategoriesSelectedState.ALL;
     } else if (newCountSelected < categories.length && newCountSelected > 0) {
       newSelectedState = CategoriesSelectedState.SOME;
@@ -126,7 +131,7 @@ export const BudgetCategoryProvider = ({
   };
 
   useEffect(() => {
-    setCategories(TEST_DATA);
+    getBudgetCategories().then((response) => setCategories(response));
   }, [TEST_DATA]);
 
   return (

@@ -28,12 +28,12 @@ export const BudgetRouter = () => {
     {
       path: "/sign-out",
       Component: PublicLayout,
-      middleware: [authMiddleware],
+    //   middleware: [authMiddleware],
       children: [{ index: true, Component: SignOut }],
     },
     {
       path: "app",
-      middleware: [authMiddleware],
+    //   middleware: [authMiddleware],
       children: [
         {
           Component: SecuredLayout,
