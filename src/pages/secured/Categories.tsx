@@ -5,7 +5,7 @@ import { BudgetCategoryProvider } from "../../components/provider/BudgetCategory
 export const Categories = () => {
   return (
     <BudgetCategoryProvider>
-      <CategoriesToolbar className="pb-4" />
+      <CategoriesToolbar />
       <CategoryTable />
     </BudgetCategoryProvider>
   );

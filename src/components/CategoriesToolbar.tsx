@@ -1,27 +1,23 @@
 import { Button } from "primereact/button";
 import { Toolbar } from "primereact/toolbar";
 
-import { InputText } from "primereact/inputtext";
-import { IconField } from "primereact/iconfield";
-import { InputIcon } from "primereact/inputicon";
 import { MonthNavigator } from "./MonthNavigator";
 
-interface Props {
-  className?: string;
-}
+import "./CategoriesToolbar.css";
 
-export const CategoriesToolbar = ({ className }: Props) => {
+interface Props {}
+
+export const CategoriesToolbar = ({}: Props) => {
   const startContent = (
     <>
-      <Button icon="pi pi-plus" label="New" className="mr-2" />
-      <Button icon="pi pi-upload" />
+      <Button label="New Group" text />
     </>
   );
 
   const endContent = <MonthNavigator />;
 
   return (
-    <div className={className}>
+    <div className={"budget-categories-toolbar "}>
       <Toolbar start={startContent} end={endContent} />
     </div>
   );

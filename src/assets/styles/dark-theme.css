@@ -14,28 +14,28 @@
 }
 
 @theme {
-  --primary: #7c3aed;
-  --primary-content: #ffffff;
-  --primary-dark: #5f14e0;
-  --primary-light: #9b69f1;
+  --primary: #779ddb;
+  --primary-content: #112442;
+  --primary-dark: #4f80d0;
+  --primary-light: #9fbae6;
 
-  --secondary: #ed3a51;
-  --secondary-content: #ffffff;
-  --secondary-dark: #e0142f;
-  --secondary-light: #f1697a;
+  --secondary: #77dbb5;
+  --secondary-content: #11422f;
+  --secondary-dark: #4fd09f;
+  --secondary-light: #9fe6cb;
 
-  --background: #19181b;
-  --foreground: #252329;
-  --border: #3e3b45;
+  --background: #121821;
+  --foreground: #1c2431;
+  --border: #2e3c51;
 
-  --copy: #fbfbfb;
-  --copy-light: #d8d6dc;
-  --copy-lighter: #a49fac;
+  --copy: #fafbfc;
+  --copy-light: #ced6e3;
+  --copy-lighter: #8da0be;
 
-  --success: #3aed3a;
-  --warning: #eded3a;
-  --error: #ed3a3a;
-  --success-content: #032503;
-  --warning-content: #252503;
-  --error-content: #ffffff;
+  --success: #77db77;
+  --warning: #dbdb77;
+  --error: #db7777;
+  --success-content: #114211;
+  --warning-content: #424211;
+  --error-content: #421111;
 }

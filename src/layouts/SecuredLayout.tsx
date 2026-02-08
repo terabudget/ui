@@ -7,7 +7,10 @@ const App: React.FC = () => {
   //   const { isAuthenticated } = useAuthContext();
 
   return (
-    <div className="flex">
+    <div
+      className="flex"
+      style={{ backgroundColor: "var(--color-background)" }}
+    >
       {/* {isAuthenticated && ( */}
       <SecuredSidebar />
       <div className="flex-auto ml-2 p-4">
