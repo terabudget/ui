@@ -132,7 +132,7 @@ export const BudgetCategoryProvider = ({
 
   useEffect(() => {
     getBudgetCategories().then((response) => setCategories(response));
-  }, [TEST_DATA]);
+  }, []);
 
   return (
     <BudgetCategoryContext.Provider

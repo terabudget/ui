@@ -1,0 +1,8 @@
+.budget-month-navigator * {
+    text-align: right;
+}
+
+.budget-month-navigator > .p-datepicker-inline {
+    padding: 10rem;
+    margin: 10rem;
+}

@@ -10,11 +10,11 @@ interface Props {}
 export const CategoriesToolbar = ({}: Props) => {
   const startContent = (
     <>
-      <Button label="New Group" text />
+      <Button label="New Group" className="primary" />
     </>
   );
 
-  const endContent = <MonthNavigator />;
+  const endContent = <MonthNavigator className="secondary" />;
 
   return (
     <div className={"budget-categories-toolbar "}>

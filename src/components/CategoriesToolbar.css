@@ -1,4 +1,4 @@
-.budget-categories-toolbar * {
+.budget-categories-toolbar {
   background-color: var(--color-background);
   padding: 0;
   margin: 0;
@@ -9,7 +9,10 @@
   padding: 1rem 0 1rem 0;
   margin: 0;
 }
-
-.budget-categories-toolbar Button span {
-  color: var(--color-primary-dark);
-}
+/* 
+.budget-categories-toolbar .budget-month-navigator,
+.budget-categories-toolbar .budget-month-navigator * {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-content);
+  font-weight: normal;
+} */
