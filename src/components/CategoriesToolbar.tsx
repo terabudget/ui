@@ -10,7 +10,7 @@ interface Props {}
 export const CategoriesToolbar = ({}: Props) => {
   const startContent = (
     <>
-      <Button label="New Group" className="primary" />
+      <Button label="New Category" className="primary" />
     </>
   );
 

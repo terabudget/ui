@@ -6,46 +6,15 @@ import {
   type ReactNode,
 } from "react";
 import type { BudgetCategory } from "../../model/BudgetCategory";
-import type { BudgetCategoryMap } from "../../model/BudgetCategoryMap";
-import { CategoriesSelectedState } from "../../model/CategorySelectedState";
 import { getBudgetCategories } from "../../api/BudgetCategoryAPI";
-
-const TEST_DATA: BudgetCategory[] = [
-  {
-    // group: { id: "g1", name: "G1" },
-    // displayOrder: 0,
-    id: "0",
-    name: "Test 0",
-  },
-  {
-    // group: { id: "g2", name: "G2" },
-    // displayOrder: 1,
-    id: "1",
-    name: "Test 1",
-  },
-  {
-    // group: { id: "g1", name: "G1" },
-    // displayOrder: 2,
-    id: "2",
-    name: "Test 2",
-  },
-  {
-    // group: { id: "g1", name: "G1" },
-    // displayOrder: 3,
-    id: "3",
-    name: "Test 3",
-  },
-];
+import type { BudgetCategoryGroup } from "../../model/BudgetCategoryGroup";
 
 interface BudgetCategoryContextInterface {
-  countTotal: number;
-  countSelected: number;
-  categories: BudgetCategory[];
-  categoryMap: BudgetCategoryMap;
-  selectedState: CategoriesSelectedState;
-  bulkChangeAllSelection: (selected: boolean) => void;
-  setCategories: (categories: BudgetCategory[]) => void;
-  updateCategory: (category: BudgetCategory) => void;
+  categoryGroups: BudgetCategoryGroup[];
+  expandedGroups: BudgetCategoryGroup[];
+  setCategoryGroups: (groups: BudgetCategoryGroup[]) => void;
+  toggleGroupExpanded: (groupId: string) => void;
+  updateCategoryGroup: (category: BudgetCategoryGroup) => void;
 }
 
 const BudgetCategoryContext = createContext<
@@ -77,75 +46,48 @@ interface BudgetCategoryProviderProps {
 export const BudgetCategoryProvider = ({
   children,
 }: BudgetCategoryProviderProps) => {
-  const [categories, setCategoriesLocal] = useState<BudgetCategory[]>([]);
-  const [countSelected, setCountSelected] = useState<number>(0);
-  const [categoryMap, setCategoryMap] = useState<BudgetCategoryMap>({});
-  const [selectedState, setSelectedState] = useState<CategoriesSelectedState>(
-    CategoriesSelectedState.NONE,
+  const [categoryGroups, setCategoryGroups] = useState<BudgetCategoryGroup[]>(
+    [],
   );
 
-  const setCategories = (newCategories: BudgetCategory[]) => {
-    if (!categories) {
-      setCategoriesLocal([]);
-      return;
-    }
-    setCategoriesLocal(newCategories);
+  const [expandedGroups, setExpandedGroups] = useState<BudgetCategoryGroup[]>(
+    [],
+  );
 
-    const newCountSelected = newCategories.reduce(
-      (acc, item) => (acc = acc + (item.selected ? 1 : 0)),
-      0,
-    );
-
-    setCountSelected(countSelected);
-
-    let newSelectedState: CategoriesSelectedState =
-      CategoriesSelectedState.NONE;
-    if (newCountSelected === categories.length && newCountSelected > 0) {
-      newSelectedState = CategoriesSelectedState.ALL;
-    } else if (newCountSelected < categories.length && newCountSelected > 0) {
-      newSelectedState = CategoriesSelectedState.SOME;
-    }
-    setSelectedState(newSelectedState);
-
-    const map = newCategories.reduce((acc, item) => {
-      acc[item.id] = item;
-      return acc;
-    }, {} as BudgetCategoryMap);
-
-    setCategoryMap(map);
+  const updateCategoryGroup = (categoryGroup: BudgetCategoryGroup) => {
+    const newCategoryGroups = categoryGroups.map((g) => {
+      if (g.id === categoryGroup.id) {
+        return categoryGroup;
+      }
+      return g;
+    });
+    setCategoryGroups(newCategoryGroups);
+    // const update = Object.assign([], categories) as BudgetCategory[];
+    // update[index] = category;
+    // setCategories(update);
   };
 
-  const updateCategory = (category: BudgetCategory) => {
-    const index = categories.findIndex((c) => c.id == category.id);
-    const update = Object.assign([], categories) as BudgetCategory[];
-    update[index] = category;
-    setCategories(update);
-  };
-
-  const bulkChangeAllSelection = (selected: boolean) => {
-    const update = categories.map((c) => ({
-      ...c,
-      selected,
-    }));
-    setCategories(update);
+  const toggleGroupExpanded = (groupId: string) => {
+    const newGroups = expandedGroups.filter((g) => g.id !== groupId);
+    if (newGroups.length === expandedGroups.length) {
+      const groupToAdd = categoryGroups.find((cg) => cg.id === groupId);
+      groupToAdd && newGroups.push(groupToAdd);
+    }
+    setExpandedGroups(newGroups);
   };
 
   useEffect(() => {
-    getBudgetCategories().then((response) => setCategories(response));
+    getBudgetCategories().then((response) => setCategoryGroups(response));
   }, []);
 
   return (
     <BudgetCategoryContext.Provider
       value={{
-        countTotal: categories.length,
-        countSelected,
-        categories,
-        categoryMap,
-        selectedState,
-
-        bulkChangeAllSelection,
-        setCategories,
-        updateCategory,
+        categoryGroups,
+        expandedGroups,
+        setCategoryGroups,
+        toggleGroupExpanded,
+        updateCategoryGroup,
       }}
     >
       {children}

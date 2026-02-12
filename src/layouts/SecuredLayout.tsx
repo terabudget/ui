@@ -9,7 +9,6 @@ const App: React.FC = () => {
   return (
     <div
       className="flex"
-      style={{ backgroundColor: "var(--color-background)" }}
     >
       {/* {isAuthenticated && ( */}
       <SecuredSidebar />

@@ -1,0 +1,21 @@
+.budget-category-table thead * {
+  background-color: var(--color-table-header);
+  color: var(--color-table-header-content);
+}
+
+.budget-category-table
+  tr[data-pc-section="bodyrow"]:not(tr[data-pc-section="rowexpansion"] *) {
+  background-color: var(--color-table-section);
+  color: var(--color-table-section-content);
+  font-weight: bold;
+  border-bottom: 1px solid;
+}
+
+.budget-category-table tr[data-pc-section="rowexpansion"] {
+  margin: 0;
+  padding: 0;
+}
+
+.budget-category-table tr[data-pc-section="rowexpansion"] > td[role="cell"] {
+  padding: 0;
+}

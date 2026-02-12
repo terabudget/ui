@@ -14,30 +14,28 @@
 }
 
 @theme {
-  /* --color-color-color-color-text: #0d1016;
-  --color-color-color-color-background: #f8fafb;
-
-  --color-color-color-color-primary: #3172d0;
-  --color-color-color-color-primary-content: #ffffff;
-
-  --color-color-color-color-secondary: #ada4cb;
-  --color-color-color-color-accent: #957eb6;
-
-  --color-color-color-color-error: #ed947f;
-  --color-color-color-color-warning: #dee85b; */
-
   --color-primary-content: #ffffff;
 
   --color-secondary-content: #ffffff;
 
   --color-text: #120a19;
-  --color-background: #f7f3fb;
+  --color-background: #ffffff;
+  --color-surface: #f7f3fb;
+
   --color-primary: #8e18ef;
   --color-secondary: #bf88ec;
   --color-accent: #aa54ef;
 
   --color-error: #f68a7d;
   --color-warn: #f3bc58;
+
+  --color-table-header: #b6a6ca;
+  --color-table-header-content: #ffffff;
+
+  --color-table-section: #f0f0ff;
+  --color-table-section-content: #212529;
+
+  --color-text: #212529;
 }
 
 Button.primary {
@@ -50,4 +48,8 @@ Button.secondary {
   background-color: var(--color-secondary);
   color: var(--color-secondary-content);
   font-weight: normal;
+}
+
+* {
+  color: var(--color-text);
 }

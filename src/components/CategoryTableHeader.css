@@ -1,9 +1,0 @@
-.category-table-header,
-.category-table-header div {
-  background-color: var(--color-primary);
-  color: var(--color-primary-content);
-}
-
-.category-table-header * {
-  color: var(--color-primary-content);
-}
