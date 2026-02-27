@@ -61,72 +61,16 @@ export const SecuredSidebar = () => {
           template: itemRenderer,
         },
         {
-          command: () => nav("/app/planner"),
-          icon: "pi pi-search",
-          isActive: activeItem === "planner",
-          label: "Planner",
-          template: itemRenderer,
-        },
-      ] as SidebarItemType[],
-    },
-    {
-      separator: true,
-    },
-    {
-      label: "Analysis",
-      items: [
-        {
-          command: () => nav("/app"),
-          icon: "pi pi-plus",
-          isActive: activeItem === "dashboard",
-          label: "Dashboard",
-          template: itemRenderer,
-        },
-        {
           command: () => nav("/app/accounts"),
           icon: "pi pi-plus",
           isActive: activeItem === "accounts",
           label: "Accounts",
           template: itemRenderer,
         },
-        {
-          command: () => nav("/app/transactions"),
-          icon: "pi pi-search",
-          isActive: activeItem === "transactions",
-          label: "Transactions",
-          template: itemRenderer,
-        },
-        {
-          command: () => nav("/app/reports"),
-          icon: "pi pi-search",
-          label: "Reports",
-          isActive: activeItem === "reports",
-          template: itemRenderer,
-        },
-      ] as SidebarItemType[],
+      ],
     },
     {
       separator: true,
-    },
-
-    {
-      label: "Profile",
-      items: [
-        {
-          command: () => nav("/app/settings"),
-          label: "Settings",
-          icon: "pi pi-cog",
-          isActive: activeItem === "settings",
-          shortcut: "⌘+O",
-          template: itemRenderer,
-        },
-        {
-          label: "Sign Out",
-          icon: "pi pi-sign-out",
-          command: () => nav("/sign-out"),
-          template: itemRenderer,
-        },
-      ] as SidebarItemType[],
     },
   ];
 
