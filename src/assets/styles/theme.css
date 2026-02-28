@@ -38,17 +38,32 @@
   --color-text: #212529;
 }
 
-Button.primary {
+/* Primary button */
+Button.primary:not(.p-button-text) {
   background-color: var(--color-primary);
   color: var(--color-primary-content);
   font-weight: normal;
 }
 
-Button.secondary {
+Button.primary.p-button-text {
+  color: var(--color-primary);
+  padding: 0;
+  margin: 0;
+}
+
+/* Secondary button */
+Button.secondary:not(.p-button-text) {
   background-color: var(--color-secondary);
   color: var(--color-secondary-content);
   font-weight: normal;
 }
+
+Button.secondary.p-button-text {
+  color: var(--color-secondary);
+  padding: 0;
+  margin: 0;
+}
+
 
 * {
   color: var(--color-text);

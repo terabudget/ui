@@ -54,17 +54,17 @@ export const SecuredSidebar = () => {
 
       items: [
         {
-          command: () => nav("/app/categories"),
-          icon: "pi pi-plus",
-          isActive: activeItem === "categories",
-          label: "Categories",
-          template: itemRenderer,
-        },
-        {
           command: () => nav("/app/accounts"),
           icon: "pi pi-plus",
           isActive: activeItem === "accounts",
           label: "Accounts",
+          template: itemRenderer,
+        },
+        {
+          command: () => nav("/app/categories"),
+          icon: "pi pi-plus",
+          isActive: activeItem === "categories",
+          label: "Categories",
           template: itemRenderer,
         },
       ],

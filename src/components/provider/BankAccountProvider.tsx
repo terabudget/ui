@@ -8,13 +8,17 @@ import {
 import type { BankAccount } from "../../model/BankAccount";
 import {
   createBankAccount,
+  getBankAccount,
   getBankAccounts,
 } from "../../api/BankAccountAPI";
 import type { BankAccountCreateRequest } from "../../model/BankAccountCreateRequest";
 
 interface BankAccountContextInterface {
   accounts: BankAccount[];
-  createAccount: (account: BankAccountCreateRequest) => void;
+
+  createAccount: (account: BankAccountCreateRequest) => Promise<BankAccount>;
+  getAccount: (id: string) => Promise<BankAccount | undefined>;
+  refreshAccounts: () => void;
   setAccounts: (accounts: BankAccount[]) => void;
   updateAccount: (account: BankAccount) => void;
 }
@@ -26,9 +30,7 @@ const BankAccountContext = createContext<
 export const useBankAccountContext = () => {
   const context = useContext(BankAccountContext);
   if (context === undefined) {
-    throw new Error(
-      "useBankAccount must be used within a BankAccountProvider",
-    );
+    throw new Error("useBankAccount must be used within a BankAccountProvider");
   }
   return context;
 };
@@ -45,15 +47,23 @@ interface BankAccountProviderProps {
  * @param param0
  * @returns
  */
-export const BankAccountProvider = ({
-  children,
-}: BankAccountProviderProps) => {
+export const BankAccountProvider = ({ children }: BankAccountProviderProps) => {
   const [accounts, setAccounts] = useState<BankAccount[]>([]);
 
+  const refreshAccounts = async () => {
+    const newAccounts = await getBankAccounts();
+    setAccounts(newAccounts);
+  };
+
   const createAccount = async (account: BankAccountCreateRequest) => {
-    await createBankAccount(account);
-    const accounts = await getBankAccounts();
-    setAccounts(accounts);
+    const newAccount = await createBankAccount(account);
+    await refreshAccounts();
+    return newAccount;
+  };
+
+  const getAccount = async (id: string) => {
+    const account = await getBankAccount(id);
+    return account;
   };
 
   const updateAccount = (account: BankAccount) => {
@@ -67,7 +77,7 @@ export const BankAccountProvider = ({
   };
 
   useEffect(() => {
-    getBankAccounts().then((response) => setAccounts(response));
+    refreshAccounts();
   }, []);
 
   return (
@@ -75,6 +85,8 @@ export const BankAccountProvider = ({
       value={{
         accounts,
         createAccount,
+        getAccount,
+        refreshAccounts,
         setAccounts,
         updateAccount,
       }}
