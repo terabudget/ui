@@ -1,3 +1,5 @@
-.logo-text {
-    background-color: red;
+.budget-logo-text {
+  color: var(--color-primary);
+  font-family: "Share Tech", sans-serif;
+  font-size: xx-large;
 }

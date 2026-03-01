@@ -14,20 +14,24 @@
 }
 
 @theme {
+  --color-text: #212529;
+
+  --color-primary: #8e18ef;
   --color-primary-content: #ffffff;
 
+  --color-secondary: #bf88ec;
   --color-secondary-content: #ffffff;
+
+  --color-warn: #f3bc58;
+  --color-warn-content: var(--color-text);
 
   --color-text: #120a19;
   --color-background: #ffffff;
   --color-surface: #f7f3fb;
 
-  --color-primary: #8e18ef;
-  --color-secondary: #bf88ec;
   --color-accent: #aa54ef;
 
   --color-error: #f68a7d;
-  --color-warn: #f3bc58;
 
   --color-table-header: #b6a6ca;
   --color-table-header-content: #ffffff;
@@ -64,8 +68,19 @@ Button.secondary.p-button-text {
   margin: 0;
 }
 
+/* Warning button */
+Button.warn:not(.p-button-text) {
+  background-color: var(--color-warn);
+  color: var(--color-warn-content);
+  font-weight: normal;
+}
+
+Button.warn.p-button-text {
+  color: var(--color-warn);
+  padding: 0;
+  margin: 0;
+}
 
 * {
   color: var(--color-text);
 }
-

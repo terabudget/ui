@@ -1,5 +1,6 @@
 export interface BankAccount {
   id: string;
   name: string;
-  onBudget: boolean;
+  onBudget?: boolean;
+  closed?: boolean;
 }

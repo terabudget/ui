@@ -11,7 +11,7 @@ export const getBankAccount = async (
     case HttpStatusCode.Ok:
       return JSON.parse(response.data);
     case HttpStatusCode.NotFound:
-      return undefined;
+      throw new Error("Account not found");
     default:
       throw new Error("Failed to get account");
   }
@@ -19,7 +19,10 @@ export const getBankAccount = async (
 
 export const getBankAccounts = async (): Promise<BankAccount[]> => {
   const response = await budgetAxios.get("/bank-accounts");
-  console.log("accounts refreshed response.data.length", JSON.parse(response.data.length));
+  console.log(
+    "accounts refreshed response.data.length",
+    JSON.parse(response.data.length),
+  );
   return JSON.parse(response.data);
 };
 
@@ -38,5 +41,27 @@ export const createBankAccount = async (
       throw new Error("Account already exists");
     default:
       throw new Error("Failed to create account");
+  }
+};
+
+export const closeBankAccount = async (id: string): Promise<BankAccount> => {
+  const response = await budgetAxios.post(`/bank-accounts/${id}/close`);
+
+  switch (response.status) {
+    case HttpStatusCode.NotFound:
+      throw new Error("Account not found");
+    default:
+      return JSON.parse(response.data);
+  }
+};
+
+export const reopenBankAccount = async (id: string): Promise<BankAccount> => {
+  const response = await budgetAxios.post(`/bank-accounts/${id}/reopen`);
+
+  switch (response.status) {
+    case HttpStatusCode.NotFound:
+      throw new Error("Account not found");
+    default:
+      return JSON.parse(response.data);
   }
 };

@@ -1,17 +1,17 @@
 import { Button } from "primereact/button";
 import type { BankAccountCreateRequest } from "../../model/BankAccountCreateRequest";
 import { BankAccountCreateRequest as BankAccountCreateRequestModel } from "../../model/BankAccountCreateRequest";
-import { useRef, useState } from "react";
-import { Toast } from "primereact/toast";
+import { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
+import { useCommonUIContext } from "../provider/CommonUIProvider";
 
 interface Props {
   onSave?: (req: BankAccountCreateRequest) => void;
 }
 
 export const BankAccountCreateForm = (props: Props) => {
-  const toast = useRef<Toast>(null);
+  const { toast } = useCommonUIContext();
 
   const [newAccount, setNewAccount] = useState<BankAccountCreateRequest>({
     name: "",
@@ -24,7 +24,7 @@ export const BankAccountCreateForm = (props: Props) => {
       const parsedAccount = BankAccountCreateRequestModel.parse(newAccount);
       props.onSave && props.onSave(parsedAccount);
     } catch (e: Error | unknown) {
-      toast.current?.show({
+      toast({
         severity: "error",
         detail: e instanceof Error ? e.message : "Failed to create account",
         life: 3000,
@@ -34,7 +34,6 @@ export const BankAccountCreateForm = (props: Props) => {
 
   return (
     <>
-      <Toast ref={toast} />
       <form onSubmit={onSubmit}>
         <div className="grid grid-cols-1 gap-4">
           <div className="col-span-1">

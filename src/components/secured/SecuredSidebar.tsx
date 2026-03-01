@@ -12,14 +12,6 @@ export const SecuredSidebar = () => {
   const nav = useNavigate();
   const location = useLocation();
 
-  const headerRenderer = () => (
-    <div className="sidebar-logo">
-      <Link to={"/app"}>
-        <LogoText className="flex-auto px-4 py-2" />
-      </Link>
-    </div>
-  );
-
   const itemRenderer = (item: SidebarItemType) => <SidebarItem item={item} />;
 
   useEffect(() => {
@@ -44,12 +36,6 @@ export const SecuredSidebar = () => {
 
   let items: SidebarItemType[] = [
     {
-      template: headerRenderer,
-    },
-    {
-      separator: true,
-    },
-    {
       label: "Budget",
 
       items: [
@@ -68,9 +54,6 @@ export const SecuredSidebar = () => {
           template: itemRenderer,
         },
       ],
-    },
-    {
-      separator: true,
     },
   ];
 

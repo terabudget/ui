@@ -11,13 +11,16 @@ import "./main.css";
 
 import { BudgetRouter } from "./BudgetRouter";
 import { AuthProvider } from "./components/provider/AuthProvider";
+import { CommonUIProvider } from "./components/provider/CommonUIProvider";
 
 const root = document.getElementById("root") as HTMLElement;
 
 ReactDOM.createRoot(root).render(
   <PrimeReactProvider value={{ pt: Tailwind }}>
-    {/* <AuthProvider> */}
+    <CommonUIProvider>
+      {/* <AuthProvider> */}
       <BudgetRouter />
-    {/* </AuthProvider> */}
-  </PrimeReactProvider>
+      {/* </AuthProvider> */}
+    </CommonUIProvider>
+  </PrimeReactProvider>,
 );
